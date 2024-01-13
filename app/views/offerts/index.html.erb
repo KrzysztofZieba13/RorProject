@@ -1,0 +1,6 @@
+<h1>Oferty Prac</h1>
+<% @offerts.each do |offert| %>
+    <h2> <%= offert.title %> <%= link_to "&rarr;".html_safe, offert, style: "text-decoration: none;" %></h2>
+<% end %>
+
+<%= link_to "Dodaj Ofertę Pracy", new_offert_path %>

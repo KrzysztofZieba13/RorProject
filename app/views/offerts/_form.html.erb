@@ -1,0 +1,31 @@
+<%= form_with model: offert do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% offert.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+    <% offert.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number, "Numer telefonu" %><br>
+    <%= form.text_field :phone_number, type: :tel, placeholder: "Numer telefonu" %>
+    <% offert.errors[:phone_number].each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<p><%= link_to "Strona Główna".html_safe, root_path %></p>
