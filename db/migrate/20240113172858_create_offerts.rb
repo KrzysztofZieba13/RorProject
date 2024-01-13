@@ -4,7 +4,6 @@ class CreateOfferts < ActiveRecord::Migration[7.1]
       t.string :title
       t.text :body
       t.string :phone_number
-
       t.timestamps
     end
   end

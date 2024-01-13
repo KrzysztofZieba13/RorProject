@@ -35,9 +35,28 @@ class OffertsController < ApplicationController
     end
   end
 
+  def add_cv
+    @offert = Offert.find(params[:id])
+    @offert.cv.attach(params[:offert][:cv])
+    redirect_to @offert, notice: 'CV zostało dodane.'
+  end
+
+  def download_cv
+    @offert = Offert.find(params[:id])
+    cv = @offert.cv.find(params[:cv_id])
+    send_data cv.download, filename: cv.filename.to_s, type: cv.content_type
+  end
+
+  def delete_cv
+    @offert = Offert.find(params[:id])
+    @cv = @offert.cv.find(params[:cv_id])
+    @cv.purge
+    redirect_to @offert
+  end
+
   private
     def offert_params
-      params.require(:offert).permit(:title, :body, :phone_number)
+      params.require(:offert).permit(:title, :body, :phone_number, :cv)
     end
 
 end

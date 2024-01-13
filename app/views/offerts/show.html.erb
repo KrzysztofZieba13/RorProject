@@ -6,6 +6,34 @@
     <span>
 </p>
 <div>
+    <%= form_with model: @offert, url: add_cv_offert_path(@offert) ,local: true, multipart: true do |form| %>
+    <div>
+        <%= form.label :cv, "Dodaj CV (PDF)" %><br>
+        <%= form.file_field :cv %>
+    </div>
+    <div>
+        <%= form.submit "Prześlij"%>
+    </div>
+    <% end %>
+</div>
+
+<% if @offert.cv.attached? %>
+  <div>
+    <p>CV:</p>
+    <ul>
+      <% @offert.cv.each do |cv| %>
+        <li>
+          <%= link_to cv.filename, download_cv_offert_path(@offert, cv.id) %>
+          <%= form_with url: delete_cv_offert_path(@offert, cv.id), method: :delete, local: true do |form| %>
+            <%= form.submit 'Usuń CV', data: { turbo_confirm: 'Czy na pewno chcesz usunąć to CV?' } %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div>
     <%= link_to "Edytuj".html_safe, edit_offert_path(@offert)%>
 </div>
 
