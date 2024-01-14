@@ -13,6 +13,7 @@ class OffertsController < ApplicationController
 
   def create
     @offert = Offert.new(offert_params)
+    @offert.owner_name = current_user.name if current_user.present?
 
     if @offert.save
       redirect_to @offert
