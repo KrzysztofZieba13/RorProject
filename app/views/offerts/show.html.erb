@@ -1,40 +1,73 @@
-<h1><%= @offert.title %></h1>
-<p>
-    <%= @offert.body %><br> Kontakt:
-    <span style="color: green; font-weight:bold;">
-        <%= @offert.phone_number %>
-    <span>
-</p>
-<div>
-    <%= form_with model: @offert, url: add_cv_offert_path(@offert) ,local: true, multipart: true do |form| %>
-    <div>
-        <%= form.label :cv, "Dodaj CV (PDF)" %><br>
-        <%= form.file_field :cv %>
-    </div>
-    <div>
-        <%= form.submit "Prześlij"%>
-    </div>
+<div class="section">
+  <div class="container">
+    <% if current_user %>
+      <nav class="nav nav-logged">
+        <div class="nav-actions"> 
+          <%= link_to "Główna", root_path, class: "nav-boxes" %>
+          <%= link_to "Dodaj", new_offert_path, class: "nav-boxes" %>
+          <%= link_to 'Wyloguj', user_session_path(current_user), data: { turbo_method: :delete }, class: "nav-boxes" %>
+        </div>
+          <a  class="link-edu" href="https://guides.rubyonrails.org/getting_started.html">Edukacja</a>
+      </nav>
+    <% else %>
+      <nav class="nav nav-anonim">
+        <div class="nav-actions"> 
+          <%= link_to "Główna", root_path, class: "nav-boxes" %>
+          <%= link_to "Zaloguj", new_user_session_path, class: "nav-boxes" %>
+          <%= link_to 'Dołącz', new_user_path, class: "nav-boxes" %>
+        </div>
+        <a  class="link-edu" href="https://guides.rubyonrails.org/getting_started.html">Edukacja</a>
+      </nav>
     <% end %>
-</div>
 
-<% if @offert.cv.attached? %>
-  <div>
-    <p>CV:</p>
-    <ul>
-      <% @offert.cv.each do |cv| %>
-        <li>
-          <%= link_to cv.filename, download_cv_offert_path(@offert, cv.id) %>
-          <%= form_with url: delete_cv_offert_path(@offert, cv.id), method: :delete, local: true do |form| %>
-            <%= form.submit 'Usuń CV', data: { turbo_confirm: 'Czy na pewno chcesz usunąć to CV?' } %>
+
+    <h1 class="primary-header offert--details-header"><%= @offert.title %></h1>
+    <p class="offert--details-text">
+        <%= @offert.body %><br> Kontakt:
+        <span style="color: green; font-weight:bold;">
+            <%= @offert.phone_number %>
+        <span>
+    </p>
+    <div>
+        <%= form_with model: @offert, url: add_cv_offert_path(@offert) ,local: true, multipart: true do |form| %>
+        <div>
+            <%= form.label :cv, "Dodaj CV (PDF)" %><br>
+            <%= form.file_field :cv %>
+        </div>
+        <div>
+            <%= form.submit "Prześlij"%>
+        </div>
+        <% end %>
+    </div>
+
+    <% if @offert.cv.attached? && current_user.present? && @offert.owner_name == current_user.name %>
+      <div>
+        <p>CV:</p>
+        <ul>
+          <% @offert.cv.each do |cv| %>
+            <li>
+              <%= link_to cv.filename, download_cv_offert_path(@offert, cv.id) %>
+              <%= form_with url: delete_cv_offert_path(@offert, cv.id), method: :delete, local: true do |form| %>
+                <%= form.submit 'Usuń CV', data: { turbo_confirm: 'Czy na pewno chcesz usunąć to CV?' } %>
+              <% end %>
+            </li>
           <% end %>
-        </li>
-      <% end %>
-    </ul>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if current_user.present? && @offert.owner_name == current_user.name %>
+      <div>
+          <%= link_to "Edytuj".html_safe, edit_offert_path(@offert) %>
+      </div>
+      <div>
+          <%= link_to "Usuń ofertę".html_safe, offert_path(@offert), data:{
+            turbo_method: :delete,
+            turbo_confirm: "Czy napewno chcesz usunąć ofertę?"
+          } %>
+      </div>
+    <% end %>
+
+    <p><%= link_to "Strona Główna".html_safe, root_path %></p>
   </div>
-<% end %>
-
-<div>
-    <%= link_to "Edytuj".html_safe, edit_offert_path(@offert)%>
 </div>
-
-<p><%= link_to "Strona Główna".html_safe, root_path %></p>

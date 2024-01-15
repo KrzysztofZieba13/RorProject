@@ -55,6 +55,13 @@ class OffertsController < ApplicationController
     redirect_to @offert
   end
 
+  def destroy
+    @offert = Offert.find(params[:id])
+    @offert.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
   private
     def offert_params
       params.require(:offert).permit(:title, :body, :phone_number, :cv)
