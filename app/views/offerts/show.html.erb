@@ -1,3 +1,5 @@
+
+
 <div class="section">
   <div class="container">
     <% if current_user %>
@@ -24,21 +26,20 @@
     <h1 class="primary-header offert--details-header"><%= @offert.title %></h1>
     <p class="offert--details-text">
         <%= @offert.body %><br> Kontakt:
-        <span style="color: green; font-weight:bold;">
+        <span class="phone_number">
             <%= @offert.phone_number %>
         <span>
     </p>
-    <div>
-        <%= form_with model: @offert, url: add_cv_offert_path(@offert) ,local: true, multipart: true do |form| %>
-        <div>
-            <%= form.label :cv, "Dodaj CV (PDF)" %><br>
-            <%= form.file_field :cv %>
-        </div>
-        <div>
-            <%= form.submit "Prześlij"%>
-        </div>
-        <% end %>
-    </div>
+
+    <%= form_with model: @offert, class: "cv--send-form" , url: add_cv_offert_path(@offert) ,local: true, multipart: true do |form| %>
+      <div class="form-div">
+        <%= form.label :cv,  "Dodaj CV (PDF)", class: "form-label", for: "file" %>
+        <%= form.file_field :cv, class: "form-button file-btn", id: "file" %>
+        <%= form.submit "Prześlij", class: "form--submit-btn"%>
+      </div>
+      <p class="file-name"></p>
+    <% end %>
+
 
     <% if @offert.cv.attached? && current_user.present? && @offert.owner_name == current_user.name %>
       <div>
@@ -68,6 +69,16 @@
       </div>
     <% end %>
 
-    <p><%= link_to "Strona Główna".html_safe, root_path %></p>
   </div>
 </div>
+
+<script>
+  const file = document.querySelector('#file');
+  file.addEventListener('change', (e) => {
+  const [file] = e.target.files;
+  const { name: fileName, size } = file;
+  const fileSize = (size / 1000).toFixed(2);
+  const fileNameAndSize = `${fileName} - ${fileSize}KB`;
+  document.querySelector('.file-name').textContent = fileNameAndSize;
+});
+</script>
