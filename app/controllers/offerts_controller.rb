@@ -39,7 +39,9 @@ class OffertsController < ApplicationController
   def add_cv
     @offert = Offert.find(params[:id])
     @offert.cv.attach(params[:offert][:cv])
-    redirect_to @offert, notice: 'CV zostało dodane.'
+    flash[:notice] = 'CV zostało dodane.'
+
+    redirect_to @offert
   end
 
   def download_cv

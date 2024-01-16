@@ -1,14 +1,38 @@
-<h1>Login page</h1>
-<%= form_with model: @user, url: user_sessions_path do |f| %>
-  <div>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<div class="section">
+  <div class="container">
+    <nav class="nav nav-anonim">
+      <div class="nav-actions"> 
+        <%= link_to "Główna", root_path, class: "nav-boxes" %>
+        <%= link_to "Zaloguj", new_user_session_path, class: "nav-boxes" %>
+        <%= link_to 'Dołącz', new_user_path, class: "nav-boxes" %>
+      </div>
+      <a  class="link-edu" href="https://guides.rubyonrails.org/getting_started.html">Edukacja</a>
+    </nav>
+
+    <div class="auth--form-container">
+      <h1 class="auth-title primary-header">Witaj ponownie</h1>
+      <% if @user.errors.any? %>
+        <div>
+          <ul class="errors">
+            <% @user.errors.full_messages.each do |message| %>
+              <li class="error-register"><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= form_with model: @user, url: user_sessions_path, class: "auth-form" do |f| %>
+        <div>
+          <%= f.label :name, "Nick", class: "label-auth" %><br>
+          <%= f.text_field :name, class: 'input-auth' %>
+        </div>
+        <div>
+          <%= f.label :password, "Hasło", class: "label-auth" %><br>
+          <%= f.password_field :password, class: 'input-auth' %>
+        </div>
+        <p>
+          <%= f.submit 'Zaloguj', class: 'submit-auth' %>
+        </p>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <p>
-    <%= f.submit 'Login' %>
-  </p>
-<% end %>
+</div>

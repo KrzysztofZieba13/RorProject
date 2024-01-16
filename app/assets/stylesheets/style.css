@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
+}
+
 html {
   font-size: 62.5%;
   font-family: "Kanit";
@@ -143,6 +148,12 @@ html {
 
 .offert--details-text {
   font-size: 2.4rem;
+  line-height: 1.3;
+}
+
+.contact {
+  margin-top: 1.2rem;
+  font-size: 2.4rem;
 }
 
 .phone_number {
@@ -151,11 +162,24 @@ html {
   letter-spacing: 1px;
 }
 
+.offert-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 3.2rem;
+  /* flex-direction: column; */
+}
+
 .cv--send-form {
   display: flex;
   flex-direction: column;
   width: 55rem;
-  margin-top: 3.2rem;
+}
+
+.logged--offert-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
 }
 
 .form-div {
@@ -171,7 +195,9 @@ html {
 }
 
 .form-label,
-.form--submit-btn {
+.form--submit-btn,
+.form-edit,
+.form-delete {
   font-size: 2.4rem;
   cursor: pointer;
   padding: 1.6rem;
@@ -180,18 +206,27 @@ html {
   margin-bottom: 1.2rem;
   text-transform: uppercase;
   transition: all 0.3s;
+  color: #333;
+  text-decoration: none;
+  display: block;
 }
 
-.form-label {
+.form-label,
+.form-edit,
+.form-delete {
   border: 4px solid #ffa94d;
 }
 
 .form-label:hover,
-.form--submit-btn:hover {
+.form--submit-btn:hover,
+.form-edit:hover,
+.form-delete:hover {
   background-color: #e03131;
 }
 
-.form-label:hover {
+.form-label:hover,
+.form-edit:hover,
+.form-delete:hover {
   border: 4px solid #e03131;
 }
 
@@ -206,4 +241,114 @@ html {
 .file-name {
   font-size: 1.6rem;
   margin-bottom: 2.4rem;
+}
+
+.cv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cv-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.cv {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+.cv-link:link,
+.cv-link:visited {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+.delete-cv {
+  cursor: pointer;
+  background-color: #fff9db;
+  border: 3px solid #ffa94d;
+  padding: 0.8rem;
+  transition: all 0.3s;
+  font-size: 1.6rem;
+}
+
+.delete-cv:hover {
+  background-color: #e03131;
+  border-color: #e03131;
+}
+
+/* //////////////////// */
+/**** AUTHENTICATION ****/
+/* //////////////////// */
+.auth-title,
+.default-title {
+  font-size: 3.2rem;
+  margin-top: 1.2rem;
+}
+
+.auth--form-container,
+.default--form-container {
+  width: 45rem;
+  margin: 8rem auto 0 auto;
+  padding: 3.2rem 0 3.2rem 0;
+  background-color: #fff;
+}
+
+.auth-form,
+.form-default {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-auth,
+.label-default {
+  font-size: 2.4rem;
+}
+
+.input-auth,
+.input-default {
+  border: none;
+  border-bottom: 3px solid #ffa94d;
+  background-color: transparent;
+  font-size: 2.4rem;
+  margin-bottom: 3.2rem;
+  padding: 0.4rem;
+}
+
+.submit-auth,
+.submit-default {
+  background-color: #fff9db;
+  cursor: pointer;
+  padding: 1.2rem 3.2rem;
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: "Kanit";
+  color: #333;
+  border: none;
+  transition: all 0.3s;
+}
+
+.submit-auth:hover,
+.submit-default:hover {
+  background-color: #ffa94d;
+}
+
+.errors {
+  margin-top: 2.4rem;
+  padding-bottom: 2.4rem;
+}
+
+.error-register {
+  font-size: 1.6rem;
+  color: #e03131;
+  text-align: center;
+  list-style-type: none;
 }
